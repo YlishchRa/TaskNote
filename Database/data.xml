@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfTaskEntity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TaskEntity>
+    <Id>1</Id>
+    <Name>YURa</Name>
+    <Description> YTUra</Description>
+    <isDone>false</isDone>
+    <priority>medium</priority>
+    <Created>2023-07-16T20:20:50.8866822+03:00</Created>
+  </TaskEntity>
+  <TaskEntity>
+    <Id>2</Id>
+    <Name>YURadfghfgh</Name>
+    <Description>gfhfghfgh</Description>
+    <isDone>false</isDone>
+    <priority>high</priority>
+    <Created>2023-07-16T20:21:11.8430774+03:00</Created>
+  </TaskEntity>
+</ArrayOfTaskEntity>

@@ -1,0 +1,66 @@
+﻿@using Domain.Enums;
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h3 class ="mb-3 text-muted">Create taks</h3>
+<form id ="createrTaskForm">
+    <div class ="mb-3">
+        <label class="form-label">Name task</label>
+        <input name="Name" type="text" class="form-control" />
+    </div>
+
+    <div>
+        <label class="form-label"> Priority </label>
+        <select name="Priority" class="form-select mb-3" asp-items="Html.GetEnumSelectList<Priority>()"></select>
+    </div>
+
+    <div>
+        <label class="form-label">Name task</label>
+        <textarea name="Description" type="text" class="form-control" rows="3"> </textarea>
+    </div>
+
+    <div>
+        <button id="createTask" class="btn btn-primary" style="margin:5px 0px 0px 0px">Create task</button>
+    </div>
+
+</form>
+
+
+@section Scripts
+{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $('#createTask').on('click', function(ex){
+            ex.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Create","Task")',
+                data: $('#createrTaskForm').serialize(),
+                success: function(responce)
+                {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Information',
+                        text: responce.description,
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                },
+                error: function(responce)
+                {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'error',
+                        title: 'Information',
+                        text: responce.responseJSON.description,
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
+            })
+        });
+    </script>
+}
