@@ -10,3 +10,7 @@ I also handle errors such as not being able to add a new item to the list and sh
 
 Updated
 after you create a new task, it is displayed in the table
+
+Updated*
+implemented the completion of the selected task
+
