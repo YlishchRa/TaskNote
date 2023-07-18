@@ -1,6 +1,8 @@
 ﻿using Domain.ViewModels.Task;
 using Microsoft.AspNetCore.Mvc;
 using Service.Interfaces;
+using System.Collections;
+using System.ComponentModel;
 using System.Diagnostics;
 
 namespace OrderWebSite.Controllers
@@ -30,6 +32,13 @@ namespace OrderWebSite.Controllers
 
             return BadRequest(new { description = responce.Description });
         }
-      
+
+        public async Task<IActionResult> TaskHandler()
+        {
+            var responce = await taskService.GetTasks();
+
+            return Json(new {data = responce.Data});
+        }
+
     }
 }

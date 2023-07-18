@@ -4,7 +4,7 @@
     ViewData["Title"] = "Home Page";
 }
 
-<h3 class ="mb-3 text-muted">Create taks</h3>
+<h3 class ="mb-3 text-muted">Create task</h3>
 <form id ="createrTaskForm">
     <div class ="mb-3">
         <label class="form-label">Name task</label>
@@ -22,16 +22,75 @@
     </div>
 
     <div>
-        <button id="createTask" class="btn btn-primary" style="margin:5px 0px 0px 0px">Create task</button>
+        <button id="createTask" class="btn btn-primary" style="margin:5px 0px 5px 0px">Create task</button>
     </div>
 
 </form>
+<table class="table table-dark table-hover" id="taskTableId">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Priority</th>
+            <th>Description</th>
+            <th>Done</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
 
+    </tbody>
+
+</table>
 
 @section Scripts
 {
+    <script type="text/javascript" src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
+
+        let dataTable = $("#taskTableId").DataTable({
+            info: false,
+            serverSide: true,
+            searching: false,
+            paging: false,
+            sorting: false,
+            ajax:{
+                url: "@Url.Action("TaskHandler")",
+                method: 'POST',
+                data: null
+            },
+            columns: [
+                {data: 'name'},
+                {data: 'priority' },
+                { data: 'description' },
+                { data: 'isDone' },
+                {
+                    data: null,
+                    sortable: false,
+                    render: function(data, type)
+                    {
+                        return `<button class="btn btn-success btn-sm center-block">Perform</button>`
+                    }
+                }
+            ],
+            createdRow: function(nRow,data)
+            {
+                for (var i = 0; i < dataTable.columns().header().length - 1; i++ )
+                {
+                   $('td',nRow).eq(i).css('cursor','pointer');
+                    $('td', nRow).eq(i).on('click', null);
+                }
+                $('td button', nRow).eq(i).on('click', null);
+
+            }
+        })
+
+
+
+
+
+        
+
         $('#createTask').on('click', function(ex){
             ex.preventDefault();
             $.ajax({
@@ -48,6 +107,8 @@
                         showConfirmButton: false,
                         timer: 1500
                     })
+                    dataTable.clear().draw()
+
                 },
                 error: function(responce)
                 {
@@ -60,7 +121,9 @@
                         timer: 1500
                     })
                 }
+
             })
         });
+
     </script>
 }

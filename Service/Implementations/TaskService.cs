@@ -27,6 +27,7 @@ namespace Service.Implementations
         {
             try
             {
+                model.Validate();
                 _logger.LogInformation($"Request to create the task - {model.Name}");
                 var task = await _taskRepository.Find(model);
 
@@ -57,13 +58,51 @@ namespace Service.Implementations
                     Description = "Task has successfully created"
                 };
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 return new BaseResponce<TaskEntity>()
                 {
                     StatusCode = StatusCode.InternalServerError,
-                    Description = "Task hasn't created. Server error"
+                    Description = $"{ex.Message}"
                 };
+            }
+        }
+
+        public async Task<IBaseResponce<IEnumerable<TaskViewModel>>> GetTasks()
+        {
+            try
+            {
+                var task = _taskRepository.GetAll();
+
+                List< TaskViewModel > tmp = new List< TaskViewModel >();
+
+                for(int i =0; i < task.Count; i++)
+                {
+                    tmp.Add(new TaskViewModel
+                    {
+                        Id = task[i].Id,
+                        Name = task[i].Name,
+                        Description = task[i].Description,
+                        Priority = task[i].priority.ToString(),
+                        isDone = task[i].isDone.ToString(),
+                        Created = task[i].Created.ToString(),
+                    });
+                }
+                return new BaseResponce<IEnumerable<TaskViewModel>>()
+                {
+                    Data = tmp,
+                    StatusCode = StatusCode.OK,
+                };
+
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponce<IEnumerable<TaskViewModel>>()
+                {
+                    Description = $"{ex.Message}",
+                    StatusCode = StatusCode.InternalServerError,
+                };
+
             }
         }
     }
