@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfTaskEntity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TaskEntity>
+    <Id>1</Id>
+    <Name>fdf</Name>
+    <Description> dfdf</Description>
+    <isDone>true</isDone>
+    <priority>medium</priority>
+    <Created>2023-07-18T19:22:19.6961134+03:00</Created>
+  </TaskEntity>
+  <TaskEntity>
+    <Id>2</Id>
+    <Name>Do push up</Name>
+    <Description>Do it NOW, 10 reps!!!!</Description>
+    <isDone>true</isDone>
+    <priority>high</priority>
+    <Created>2023-07-18T19:24:06.7583947+03:00</Created>
+  </TaskEntity>
+</ArrayOfTaskEntity>

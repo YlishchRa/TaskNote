@@ -4,6 +4,7 @@ using Service.Interfaces;
 using System.Collections;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace OrderWebSite.Controllers
 {
@@ -38,6 +39,18 @@ namespace OrderWebSite.Controllers
             var responce = await taskService.GetTasks();
 
             return Json(new {data = responce.Data});
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EndTask(long id)
+        {
+            var responce = await taskService.EndTask(id);
+            if (responce.StatusCode == Domain.Enums.StatusCode.OK)
+            {
+                return Ok(new { description = responce.Description });
+            }
+
+            return BadRequest(new { description = responce.Description });
         }
 
     }

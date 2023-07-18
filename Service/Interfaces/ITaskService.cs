@@ -13,5 +13,6 @@ namespace Service.Interfaces
     {
         Task<IBaseResponce<TaskEntity>> Create(CreateTaskViewModel model);
         Task<IBaseResponce<IEnumerable<TaskViewModel>>> GetTasks();
+        Task<IBaseResponce<bool>> EndTask(long id);
     }
 }

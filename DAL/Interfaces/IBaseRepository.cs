@@ -20,5 +20,7 @@ namespace DAL.Interfaces
         List<TaskEntity> GetAll();
 
         Task<T> Find(CreateTaskViewModel entity);
+
+        void SaveTasks();
     }
 }

@@ -68,6 +68,43 @@ namespace Service.Implementations
             }
         }
 
+        public async Task<IBaseResponce<bool>> EndTask(long id)
+        {
+            try
+            {
+                var task = _taskRepository.GetAll()[(int)id-1];
+
+                if(task == null)
+                {
+                    _logger.LogInformation($"[TaskService.EndTask]: NULL TASK");
+                    return new BaseResponce<bool>()
+                    {
+                        Description = $"TASK NOT FOUND",
+                        StatusCode = StatusCode.TaskNotFound,
+                    };
+                }
+
+                task.isDone = true;
+
+                await _taskRepository.Update(task);
+
+                return new BaseResponce<bool>()
+                {
+                    Description = $"Task has been finished",
+                    StatusCode = StatusCode.OK,
+                };
+            }
+            catch (Exception ex) 
+            {
+                _logger.LogInformation($"[TaskService.EndTask]: {ex.Message}");
+                return new BaseResponce<bool>()
+                {
+                    Description = $"{ex.Message}",
+                    StatusCode = StatusCode.InternalServerError,
+                };
+            }
+        }
+
         public async Task<IBaseResponce<IEnumerable<TaskViewModel>>> GetTasks()
         {
             try

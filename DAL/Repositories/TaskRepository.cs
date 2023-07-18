@@ -164,5 +164,9 @@ namespace DAL.Repositories
             await SerializeTasks();
         }
 
+        public async void SaveTasks()
+        {
+            await SerializeTasks();
+        }
     }
 }
